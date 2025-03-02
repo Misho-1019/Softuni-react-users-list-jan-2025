@@ -22,15 +22,15 @@ export default function UserList() {
             <div className="table-wrapper">
                 <div className="overlays">
 
-                {/* <!-- Overlap components  --> */}
+                    {/* <!-- Overlap components  --> */}
 
-                {/* <!-- <div className="loading-shade"> --> */}
-                {/* <!-- Loading spinner  --> */}
-                {/* <!-- <div className="spinner"></div> --> */}
-                {/* <!--  */}
-                {/* No users added yet  --> */}
+                    {/* <!-- <div className="loading-shade"> --> */}
+                    {/* <!-- Loading spinner  --> */}
+                    {/* <!-- <div className="spinner"></div> --> */}
+                    {/* <!--  */}
+                    {/* No users added yet  --> */}
 
-                {/* <div className="table-overlap">
+                    {/* <div className="table-overlap">
                 <svg
                 aria-hidden="true"
                   focusable="false"
@@ -49,11 +49,11 @@ export default function UserList() {
                   <h2>There is no users yet.</h2>
                   </div> --> */}
 
-                {/* <!-- No content overlap component  --> */}
+                    {/* <!-- No content overlap component  --> */}
 
-                {/* <!-- On error overlap component  --> */}
+                    {/* <!-- On error overlap component  --> */}
 
-                {/* <div className="table-overlap"> 
+                    {/* <div className="table-overlap"> 
                 <svg
                 aria-hidden="true"
                 focusable="false"
@@ -71,7 +71,7 @@ export default function UserList() {
                 </svg>
                 <h2>Failed to fetch</h2>
                 </div> --> */}
-                {/* <!-- </div> --> */}
+                    {/* <!-- </div> --> */}
                 </div>
 
                 <table className="table">
@@ -131,7 +131,10 @@ export default function UserList() {
                     </thead>
                     <tbody>
                         {/* <!-- Table row component --> */}
-                        <UserListItem />
+                        {users.map(user => <UserListItem
+                            key={user._id}
+                            {...user}
+                        />)}
                     </tbody>
                 </table>
             </div>
