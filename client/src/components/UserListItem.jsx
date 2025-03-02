@@ -18,7 +18,6 @@ export default function UserListItem({
             <td>{lastName}</td>
             <td>{email}</td>
             <td>{phoneNumber}</td>
-            {/* <td>June 28, 2022</td> */}
             <td>{fromIsoDate(createdAt)}</td>
 
             <td className="actions">

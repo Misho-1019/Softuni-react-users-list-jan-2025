@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
+
+import userService from "../services/user-service";
+
 import Pagination from "./Pagination";
 import Search from "./Search";
 import UserListItem from "./UserListItem";
-import userService from "../services/user-service";
 import UserCreate from "./UserCreate";
 
 export default function UserList() {
@@ -18,18 +20,36 @@ export default function UserList() {
 
     const createUserClickHandler = () => {
         setShowCreate(true)
-        
+
     }
 
     const closeCreateUserClickHandler = () => {
         setShowCreate(false)
     }
+
+    const saveCreateUserClickHandler = async (e) => {
+        e.preventDefault()
+        const formData = new FormData(e.target)
+        const userData = Object.fromEntries(formData)
+
+        const newUser = await userService.create(userData);
+        
+        setUsers(state => [...state, newUser])
+
+        setShowCreate(false)
+    }
+
     return (
         <section className="card users-container">
             {/* <!-- Search bar component --> */}
             <Search />
 
-            {showCreate && <UserCreate onClose={closeCreateUserClickHandler} />}
+            {showCreate && (
+                <UserCreate
+                    onClose={closeCreateUserClickHandler}
+                    onSave={saveCreateUserClickHandler}
+                />)
+            }
 
             {/* <!-- Table component --> */}
             <div className="table-wrapper">
