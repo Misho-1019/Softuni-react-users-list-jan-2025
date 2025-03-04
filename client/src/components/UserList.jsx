@@ -6,10 +6,12 @@ import Pagination from "./Pagination";
 import Search from "./Search";
 import UserListItem from "./UserListItem";
 import UserCreate from "./UserCreate";
+import UserInfo from "./UserInfo";
 
 export default function UserList() {
     const [users, setUsers] = useState([])
     const [showCreate, setShowCreate] = useState(false)
+    const [userIdInfo, setUserIdInfo] = useState()
 
     useEffect(() => {
         userService.getAll()
@@ -33,10 +35,14 @@ export default function UserList() {
         const userData = Object.fromEntries(formData)
 
         const newUser = await userService.create(userData);
-        
+
         setUsers(state => [...state, newUser])
 
         setShowCreate(false)
+    }
+
+    const userInfoClickHandler = (userId) => {
+        setUserIdInfo(userId)
     }
 
     return (
@@ -50,6 +56,12 @@ export default function UserList() {
                     onSave={saveCreateUserClickHandler}
                 />)
             }
+
+            {userIdInfo && (
+                <UserInfo
+                    userId={userIdInfo}
+                />
+            )}
 
             {/* <!-- Table component --> */}
             <div className="table-wrapper">
@@ -166,6 +178,7 @@ export default function UserList() {
                         {/* <!-- Table row component --> */}
                         {users.map(user => <UserListItem
                             key={user._id}
+                            onInfo={userInfoClickHandler}
                             {...user}
                         />)}
                     </tbody>
